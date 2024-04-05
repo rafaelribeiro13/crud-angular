@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ICourse } from '../models/course';
 
 export interface PeriodicElement {
@@ -26,7 +26,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent {
   
   displayedColumns: string[] = ['name', 'category'];
   dataSource = ELEMENT_DATA;
@@ -34,11 +34,5 @@ export class CoursesComponent implements OnInit {
   courses: ICourse[] = [
     {_id: '1', name: 'Angular', category: 'Front-End'}
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {
-    
-  }
 
 }
