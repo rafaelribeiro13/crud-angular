@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesComponent } from './courses/courses.component';
 
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -11,7 +13,10 @@ import { CoursesComponent } from './courses/courses.component';
   ],
   imports: [
     CommonModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+
+    // Angular Material
+    MatTableModule
   ],
 })
 export class CoursesModule { }
