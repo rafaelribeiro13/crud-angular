@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { CoursesModule } from './courses/courses.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
+    // Criados
+    CoursesModule,
+
+    // Angular Material
     MatToolbarModule
   ],
   providers: [],
