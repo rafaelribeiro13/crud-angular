@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { ICourse } from '../models/course';
 import { CourseService } from '../services/course.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -35,8 +37,24 @@ export class CoursesComponent {
 
   courses$: Observable<ICourse[]>;
 
-  constructor(private courseService: CourseService) {
-    this.courses$ = this.courseService.getCourses();
+  constructor(
+    private courseService: CourseService,
+    public dialog: MatDialog
+  ) {
+    this.courses$ = this.courseService
+      .getCourses()
+      .pipe(
+        catchError(error => {
+          this.onError('Não foi possível carregar os cursos.');
+          return of([]);
+        })
+      );
+  }
+
+  onError(errorMessage: string): void {
+    this.dialog.open(ErrorDialogComponent, {
+      data: errorMessage
+    });
   }
 
 }
