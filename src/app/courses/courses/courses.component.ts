@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ICourse } from '../models/course';
+import { CourseService } from '../services/course.service';
 
 export interface PeriodicElement {
   name: string;
@@ -31,8 +32,10 @@ export class CoursesComponent {
   displayedColumns: string[] = ['name', 'category'];
   dataSource = ELEMENT_DATA;
 
-  courses: ICourse[] = [
-    {_id: '1', name: 'Angular', category: 'Front-End'}
-  ];
+  courses: ICourse[] = [];
+
+  constructor(private courseService: CourseService) {
+    this.courses = courseService.getCourses();
+  }
 
 }
