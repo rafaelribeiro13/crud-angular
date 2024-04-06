@@ -44,6 +44,7 @@ export class CoursesComponent {
     this.courses$ = this.courseService
       .getCourses()
       .pipe(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         catchError(error => {
           this.onError('Não foi possível carregar os cursos.');
           return of([]);
