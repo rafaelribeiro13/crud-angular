@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+import { Observable, take, tap } from 'rxjs';
 import { ICourse } from '../models/course';
 
 @Injectable({
@@ -8,12 +9,16 @@ import { ICourse } from '../models/course';
 })
 export class CourseService {
 
+  private readonly COURSE_API = 'assets/courses.json';
+
   constructor(private http: HttpClient) {}
 
-  getCourses(): ICourse[] {
-    return [
-      {_id: '1', name: 'Angular', category: 'Front-End'}
-    ];
+  getCourses(): Observable<ICourse[]> {
+    return this.http.get<ICourse[]>(this.COURSE_API)
+      .pipe(
+        tap(data => console.log(data)),
+        take(1)
+      );
   }
 
 }

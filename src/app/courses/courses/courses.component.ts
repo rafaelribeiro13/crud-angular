@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ICourse } from '../models/course';
 import { CourseService } from '../services/course.service';
 
@@ -32,10 +33,10 @@ export class CoursesComponent {
   displayedColumns: string[] = ['name', 'category'];
   dataSource = ELEMENT_DATA;
 
-  courses: ICourse[] = [];
+  courses$: Observable<ICourse[]>;
 
   constructor(private courseService: CourseService) {
-    this.courses = courseService.getCourses();
+    this.courses$ = this.courseService.getCourses();
   }
 
 }
