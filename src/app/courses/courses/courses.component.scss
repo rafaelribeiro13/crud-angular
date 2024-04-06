@@ -5,3 +5,13 @@ table {
 .mat-toolbar {
     font-size: 1.3em;
 }
+
+.loading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+
+    background-color: rgba(211, 211, 211, 0.486);
+}
