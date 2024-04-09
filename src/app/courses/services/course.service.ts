@@ -9,7 +9,7 @@ import { ICourse } from '../models/course';
 })
 export class CourseService {
 
-  private readonly COURSE_API = 'assets/courses.json';
+  private readonly COURSE_API = 'api/courses';
 
   constructor(private http: HttpClient) {}
 
