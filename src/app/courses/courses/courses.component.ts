@@ -4,6 +4,7 @@ import { ICourse } from '../models/course';
 import { CourseService } from '../services/course.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -32,13 +33,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class CoursesComponent {
   
-  displayedColumns: string[] = ['name', 'category'];
+  displayedColumns: string[] = ['name', 'category', 'actions'];
   dataSource = ELEMENT_DATA;
 
   courses$: Observable<ICourse[]>;
 
   constructor(
     private courseService: CourseService,
+    private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog
   ) {
     this.courses$ = this.courseService
@@ -50,6 +53,10 @@ export class CoursesComponent {
           return of([]);
         })
       );
+  }
+
+  onAdd(): void {
+    this.router.navigate(['novo'], {relativeTo: this.route});
   }
 
   onError(errorMessage: string): void {
