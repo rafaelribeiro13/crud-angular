@@ -1,4 +1,4 @@
 export enum Category {
-    FRONT_END = 'Front-End',
-    BACK_END = 'Back-End'
+    FRONT_END = 'front-end',
+    BACK_END = 'back-end'
 }
