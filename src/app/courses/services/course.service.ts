@@ -22,7 +22,7 @@ export class CourseService {
       );
   }
 
-  save(record: ICourse): Observable<ICourse> {
+  save(record: Partial<ICourse>): Observable<ICourse> {
     return this.http
       .post<ICourse>(this.COURSE_API, record)
       .pipe(

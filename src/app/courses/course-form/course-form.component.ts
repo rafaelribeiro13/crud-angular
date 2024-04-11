@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseService } from '../services/course.service';
 
@@ -11,19 +11,17 @@ import { CourseService } from '../services/course.service';
 })
 export class CourseFormComponent {
 
-  form: FormGroup;
+  form = this.fb.group({
+    name: ['', [Validators.required]],
+    category: ['', [Validators.required]]
+  });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private service: CourseService,
     private _snackBar: MatSnackBar,
     private location: Location
-  ) {
-    this.form = this.fb.group({
-      name: [null, [Validators.required]],
-      category: [null, [Validators.required]]
-    });
-  }
+  ) {}
 
   onSubmit(): void {
     this.service.save(this.form.value).subscribe({
