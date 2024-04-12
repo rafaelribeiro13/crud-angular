@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CourseService } from '../services/course.service';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-course-form',
