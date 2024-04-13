@@ -49,4 +49,8 @@ export class CourseService {
       );
   }
 
+  remove(id: string): Observable<unknown> {
+    return this.http.delete(`${this.COURSE_API}/${id}`).pipe(first());
+  }
+
 }
