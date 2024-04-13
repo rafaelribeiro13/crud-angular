@@ -30,8 +30,20 @@ export class CourseService {
   }
 
   save(record: Partial<ICourse>): Observable<ICourse> {
+    return record._id ? this.update(record) : this.create(record);
+  }
+
+  private create(record: Partial<ICourse>): Observable<ICourse>  {
     return this.http
       .post<ICourse>(this.COURSE_API, record)
+      .pipe(
+        first()
+      );
+  }
+
+  private update(record: Partial<ICourse>): Observable<ICourse> {
+    return this.http
+      .put<ICourse>(`${this.COURSE_API}/${record._id}`, record)
       .pipe(
         first()
       );
