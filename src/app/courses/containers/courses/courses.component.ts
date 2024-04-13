@@ -36,6 +36,10 @@ export class CoursesComponent {
     this.router.navigate(['novo'], {relativeTo: this.route});
   }
 
+  onEdit(course: ICourse): void {
+    this.router.navigate(['editar', course._id], {relativeTo: this.route});
+  }
+
   onError(errorMessage: string): void {
     this.dialog.open(ErrorDialogComponent, {
       data: errorMessage

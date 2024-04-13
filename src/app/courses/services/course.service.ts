@@ -22,6 +22,13 @@ export class CourseService {
       );
   }
 
+  getCourse(id: string): Observable<ICourse> {
+    return this.http.get<ICourse>(`${this.COURSE_API}/${id}`)
+      .pipe(
+        first()
+      );
+  }
+
   save(record: Partial<ICourse>): Observable<ICourse> {
     return this.http
       .post<ICourse>(this.COURSE_API, record)
