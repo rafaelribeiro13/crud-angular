@@ -7,9 +7,10 @@
         <form [formGroup]="form" class="min-width">
             <mat-form-field class="full-width">
                 <mat-label>Nome</mat-label>
-                <input matInput formControlName="name">
-                <mat-error *ngIf="form.get('name')?.hasError('required')">
-                    Por favor, informe um nome para o curso
+                <input matInput formControlName="name" #name>
+                <mat-hint>{{name.value.length}}/100</mat-hint>
+                <mat-error *ngIf="form.get('name')?.invalid">
+                    {{ getErrorsMessage('name') }}
                 </mat-error>
             </mat-form-field>
         
@@ -20,15 +21,20 @@
                     <mat-option value="front-end">Front-End</mat-option>
                     <mat-option value="back-end">Back-End</mat-option>
                 </mat-select>
-                <mat-error *ngIf="form.get('category')?.hasError('required')">
-                    Por favor, escolha uma categoria
+                <mat-error *ngIf="form.get('category')?.invalid">
+                    {{ getErrorsMessage('category') }}
                 </mat-error>
             </mat-form-field>
         </form>
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
+        <button 
+            mat-raised-button color="primary" 
+            (click)="onSubmit()"
+            [disabled]="!this.form.valid">
+            Salvar
+        </button>
         <button mat-raised-button (click)="onCancel()">Cancelar</button>
     </mat-card-actions>
 </mat-card>

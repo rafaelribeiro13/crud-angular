@@ -15,7 +15,11 @@ export class CourseFormComponent implements OnInit {
 
   form = this.fb.group({
     _id: [''],
-    name: ['', [Validators.required]],
+    name: ['', [
+      Validators.required, 
+      Validators.minLength(5), 
+      Validators.maxLength(100)]
+    ],
     category: ['', [Validators.required]]
   });
 
@@ -50,6 +54,26 @@ export class CourseFormComponent implements OnInit {
 
   onCancel(): void {
     this.location.back();
+  }
+
+  getErrorsMessage(fieldName: string): string {
+    const field = this.form.get(fieldName);
+
+    if (field?.hasError('required')) {
+      return 'Campo obrigatório';
+    }
+
+    if (field?.hasError('minlength')) {
+      const requiredLength: number = field.errors ? field.errors['minlength']['requiredLength'] : 5;
+      return `Tamanho mínimo de ${requiredLength} caracteres`
+    }
+
+    if (field?.hasError('maxlength')) {
+      const requiredLength: number = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
+      return `Tamanho máximo de ${requiredLength} caracteres`
+    }
+
+    return 'Campo inválido';
   }
 
   private onSuccess(): void {
