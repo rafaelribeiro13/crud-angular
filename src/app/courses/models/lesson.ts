@@ -1,5 +1,5 @@
 export interface ILesson {
-    id: number;
+    id: string;
     name: string;
     youtubeUrl: string;
 }

@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import { ICourse } from '../../models/course';
+import { ILesson } from '../../models/lesson';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-course-form',
@@ -13,15 +14,7 @@ import { ICourse } from '../../models/course';
 })
 export class CourseFormComponent implements OnInit {
 
-  form = this.fb.group({
-    _id: [''],
-    name: ['', [
-      Validators.required, 
-      Validators.minLength(5), 
-      Validators.maxLength(100)]
-    ],
-    category: ['', [Validators.required]]
-  });
+  form!: FormGroup;
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -34,13 +27,42 @@ export class CourseFormComponent implements OnInit {
   ngOnInit(): void {
     const course: ICourse = this.route.snapshot.data['course'];
     
-    this.form.setValue({
-      _id: course._id,
-      name: course.name,
-      category: course.category
+    this.form = this.fb.group({
+      _id: [course._id],
+      name: [course.name, [
+        Validators.required, 
+        Validators.minLength(5), 
+        Validators.maxLength(100)]
+      ],
+      category: [course.category, [Validators.required]],
+      lessons: this.fb.array(this.retrieveLessons(course))
     });
 
-    console.log('Curso: ', course);
+    console.log(this.form);
+    console.log(this.form.value);
+  }
+
+  private retrieveLessons(course: ICourse): FormGroup[] {
+    const lessons = [];
+    if (course?.lessons) {
+      course.lessons.forEach(lesson => {
+        lessons.push(this.createLesson(lesson));
+      });
+    } else {
+      lessons.push(this.createLesson());
+    }
+
+    return lessons;
+  }
+
+  private createLesson(
+    lesson: ILesson = {id: '', name: '', youtubeUrl: ''}
+  ): FormGroup {
+    return this.fb.group({
+      id: [lesson.id],
+      name: [lesson.name],
+      youtubeUrl: [lesson.youtubeUrl]
+    });
   }
 
   onSubmit(): void {
