@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ICourse } from '../../models/course';
@@ -98,6 +98,10 @@ export class CourseFormComponent implements OnInit {
     }
 
     return 'Campo inválido';
+  }
+
+  getLessonsFormArray(): AbstractControl<any, any>[] {
+    return (<UntypedFormArray>this.form.get('lessons')).controls;
   }
 
   private onSuccess(): void {
