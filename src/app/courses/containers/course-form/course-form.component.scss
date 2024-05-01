@@ -17,3 +17,10 @@
     width: 100%;
     min-width: 150px;
 }
+
+#lesson-row {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 10px;
+}
