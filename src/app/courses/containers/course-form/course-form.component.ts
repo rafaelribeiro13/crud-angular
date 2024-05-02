@@ -35,7 +35,7 @@ export class CourseFormComponent implements OnInit {
         Validators.maxLength(100)]
       ],
       category: [course.category, [Validators.required]],
-      lessons: this.fb.array(this.retrieveLessons(course))
+      lessons: this.fb.array(this.retrieveLessons(course), [Validators.required])
     });
 
     console.log(this.form);
@@ -60,20 +60,32 @@ export class CourseFormComponent implements OnInit {
   ): FormGroup {
     return this.fb.group({
       id: [lesson.id],
-      name: [lesson.name],
-      youtubeUrl: [lesson.youtubeUrl]
+      name: [lesson.name, [
+        Validators.required, 
+        Validators.minLength(5), 
+        Validators.maxLength(100)
+      ]],
+      youtubeUrl: [lesson.youtubeUrl, [
+        Validators.required, 
+        Validators.minLength(5), 
+        Validators.maxLength(100)
+      ]]
     });
   }
 
   onSubmit(): void {
-    this.service.save(this.form.value).subscribe({
-      next: () => {
-        this.onSuccess();
-      },
-      error: () => {
-        this.onError();
-      }
-    });
+    if (this.form.valid) {
+      this.service.save(this.form.value).subscribe({
+        next: () => {
+          this.onSuccess();
+        },
+        error: () => {
+          this.onError();
+        }
+      });
+    } else {
+      alert('Formulário inválido');
+    }
   }
 
   onCancel(): void {
@@ -112,6 +124,11 @@ export class CourseFormComponent implements OnInit {
 
   getLessonsFormArray(): AbstractControl<any, any>[] {
     return (<UntypedFormArray>this.form.get('lessons')).controls;
+  }
+
+  isFormArrayRequired() {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    return !lessons.valid && lessons.hasError('required') && lessons.touched;
   }
 
   private onSuccess(): void {

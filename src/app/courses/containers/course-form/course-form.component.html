@@ -33,6 +33,10 @@
                 </button>
             </mat-toolbar>
 
+            <mat-error *ngIf="isFormArrayRequired()">
+                Adicione pelo menos uma aula
+            </mat-error>
+
             <div 
                 style="width: 100%;"
                 formArrayName="lessons"
@@ -42,6 +46,9 @@
                         <mat-form-field class="full-width">
                             <mat-label>Nome da aula</mat-label>
                             <input matInput formControlName="name">
+                            <mat-error *ngIf="getLessonsFormArray()[i].get('name')">
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
@@ -49,6 +56,9 @@
                         <mat-form-field class="full-width">
                             <mat-label>URL</mat-label>
                             <input matInput formControlName="youtubeUrl">
+                            <mat-error *ngIf="getLessonsFormArray()[i].get('youtubeUrl')">
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
@@ -68,8 +78,7 @@
     <mat-card-actions>
         <button 
             mat-raised-button color="primary" 
-            (click)="onSubmit()"
-            [disabled]="!this.form.valid">
+            (click)="onSubmit()">
             Salvar
         </button>
         <button mat-raised-button (click)="onCancel()">Cancelar</button>
