@@ -10,7 +10,7 @@
                 <input matInput formControlName="name" #name>
                 <mat-hint>{{name.value.length}}/100</mat-hint>
                 <mat-error *ngIf="form.get('name')?.invalid">
-                    {{ getErrorsMessage('name') }}
+                    {{ formService.getErrorsMessage(form, 'name') }}
                 </mat-error>
             </mat-form-field>
         
@@ -22,7 +22,7 @@
                     <mat-option value="back-end">Back-End</mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.get('category')?.invalid">
-                    {{ getErrorsMessage('category') }}
+                    {{ formService.getErrorsMessage(form, 'category') }}
                 </mat-error>
             </mat-form-field>
 
@@ -33,7 +33,7 @@
                 </button>
             </mat-toolbar>
 
-            <mat-error *ngIf="isFormArrayRequired()">
+            <mat-error *ngIf="formService.isFormArrayRequired(form, 'lessons')">
                 Adicione pelo menos uma aula
             </mat-error>
 
@@ -47,7 +47,11 @@
                             <mat-label>Nome da aula</mat-label>
                             <input matInput formControlName="name">
                             <mat-error *ngIf="getLessonsFormArray()[i].get('name')">
-                                Campo obrigatório
+                                {{ 
+                                    formService.getFormArrayFieldErrorMessage(
+                                        form, 'lessons', 'name', i
+                                    )
+                                }}
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -57,7 +61,11 @@
                             <mat-label>URL</mat-label>
                             <input matInput formControlName="youtubeUrl">
                             <mat-error *ngIf="getLessonsFormArray()[i].get('youtubeUrl')">
-                                Campo obrigatório
+                                {{ 
+                                    formService.getFormArrayFieldErrorMessage(
+                                        form, 'lessons', 'youtubeUrl', i
+                                    )
+                                }}
                             </mat-error>
                         </mat-form-field>
                     </div>

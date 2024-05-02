@@ -28,16 +28,16 @@ export class FormUtilsService {
   }
 
   getErrorMessageFromField(field: UntypedFormControl): string {
-    if (field?.hasError('required')) {
+    if (field.hasError('required')) {
       return 'Campo obrigatório';
     }
 
-    if (field?.hasError('minlength')) {
+    if (field.hasError('minlength')) {
       const requiredLength: number = field.errors ? field.errors['minlength']['requiredLength'] : 5;
       return `Tamanho mínimo de ${requiredLength} caracteres`
     }
 
-    if (field?.hasError('maxlength')) {
+    if (field.hasError('maxlength')) {
       const requiredLength: number = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
       return `Tamanho máximo de ${requiredLength} caracteres`
     }
