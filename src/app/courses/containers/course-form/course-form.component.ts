@@ -1,4 +1,3 @@
-import { FormUtilsService } from './../../../app/shared/form/form-utils.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
@@ -7,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ICourse } from '../../models/course';
 import { ILesson } from '../../models/lesson';
 import { CourseService } from '../../services/course.service';
+import { FormUtilsService } from 'src/app/shared/form/form-utils.service';
 
 @Component({
   selector: 'app-course-form',

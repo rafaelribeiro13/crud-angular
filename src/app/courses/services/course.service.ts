@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, first, take, tap } from 'rxjs';
 import { ICourse } from '../models/course';
+import { ICoursePage } from '../models/course-page';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,15 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
-  getCourses(): Observable<ICourse[]> {
-    return this.http.get<ICourse[]>(this.COURSE_API)
-      .pipe(
-        take(1),
-        tap(data => console.log(data)),
-      );
+  getCourses(page = 0, pageSize = 10): Observable<ICoursePage> {
+    return this.http.get<ICoursePage>(
+      this.COURSE_API, 
+      { params: { page, pageSize } }
+    )
+    .pipe(
+      take(1),
+      tap(data => console.log(data)),
+    );
   }
 
   getCourse(id: string): Observable<ICourse> {
