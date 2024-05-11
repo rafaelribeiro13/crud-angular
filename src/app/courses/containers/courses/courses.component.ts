@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { ICourse } from '../../models/course';
 import { CourseService } from '../../services/course.service';
@@ -15,7 +15,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
   
   coursePage$: Observable<ICoursePage> | null = null;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,7 +29,9 @@ export class CoursesComponent {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-  ) {
+  ) {}
+  
+  ngOnInit(): void {
     this.refresh()
   }
 
@@ -41,7 +43,7 @@ export class CoursesComponent {
     this.router.navigate(['editar', course._id], {relativeTo: this.route});
   }
 
-  onDelete(course: ICourse): void {
+  onRemove(course: ICourse): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: 'Tem certeza que deseja remover o curso?'
     });

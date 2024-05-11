@@ -11,7 +11,7 @@ export class CoursesListComponent {
   @Input() courses: ICourse[] = [];
   @Output() addCourse = new EventEmitter(false);
   @Output() editCourse = new EventEmitter(false);
-  @Output() deleteCourse = new EventEmitter(false);
+  @Output() removeCourse = new EventEmitter(false);
 
   readonly displayedColumns: string[] = ['name', 'category', 'actions'];
 
@@ -24,7 +24,7 @@ export class CoursesListComponent {
   }
 
   onDelete(course: ICourse): void {
-    this.deleteCourse.emit(course);
+    this.removeCourse.emit(course);
   }
 
 }
