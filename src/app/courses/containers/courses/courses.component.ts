@@ -32,15 +32,15 @@ export class CoursesComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.refresh()
+    this.refresh();
   }
 
   onAdd(): void {
-    this.router.navigate(['novo'], {relativeTo: this.route});
+    this.router.navigate(['novo'], { relativeTo: this.route });
   }
 
   onEdit(course: ICourse): void {
-    this.router.navigate(['editar', course._id], {relativeTo: this.route});
+    this.router.navigate(['editar', course._id], { relativeTo: this.route });
   }
 
   onRemove(course: ICourse): void {
